@@ -3,44 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>免费AI家教</title>
+  <title>免费AI家教 V8</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page-container">
+  <main class="page">
     <header class="hero">
       <div>
-        <p class="eyebrow">小学五年级数学</p>
+        <p class="tag">人教版五年级下册数学 · V8 家长学习报告中心</p>
         <h1>免费AI家教</h1>
-        <p>10道精选选择题，提交后立即判分并显示正确答案与解析。</p>
+        <p class="intro">按章节练习、自动判题、AI老师讲解、错题重练、学习统计和签到积分，帮助你每天进步一点点。</p>
       </div>
-      <div class="hero-card">
-        <h2>开始练习</h2>
-        <p>认真答题，提交后查看得分与解析，帮助你掌握知识点。</p>
+      <div class="hero-actions">
+        <button id="signBtn" class="secondary-btn" type="button">今日签到</button>
+        <button id="reportBtn" class="secondary-btn" type="button">📊 学习报告</button>
+        <button id="homeBtn" type="button">章节首页</button>
       </div>
     </header>
 
-    <main>
-      <form id="quiz-form" class="quiz-form">
-        <div id="questions"></div>
-        <div class="actions">
-          <button type="submit" class="submit-btn">提交答案</button>
-          <button type="button" id="reset-btn" class="reset-btn">重新开始</button>
+    <section class="stats-grid" aria-label="签到积分">
+      <article class="stat-card"><span>本次得分</span><strong id="scoreText">未提交</strong></article>
+      <article class="stat-card"><span>总做题数</span><strong id="totalAnswered">0</strong></article>
+      <article class="stat-card"><span>总正确率</span><strong id="accuracyRate">0%</strong></article>
+      <article class="stat-card"><span>积分</span><strong id="pointsText">0</strong></article>
+      <article class="stat-card"><span>连续学习</span><strong id="streakText">0 天</strong></article>
+      <article class="stat-card"><span>最近学习</span><strong id="lastStudyTime">暂无</strong></article>
+    </section>
+
+    <section class="panel level-panel" aria-labelledby="levelTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="levelTitle">学习等级</h2>
+          <p id="levelName">Lv1 青铜学员</p>
         </div>
-      </form>
+        <strong id="nextLevelText" class="level-next">距离下一等级还差 500 积分</strong>
+      </div>
+      <div class="level-progress" aria-label="升级进度">
+        <span id="levelProgressBar"></span>
+      </div>
+      <div class="level-scale" id="levelScale"></div>
+    </section>
 
-      <section id="result-section" class="result-section hidden">
-        <h2>你的成绩</h2>
-        <p id="score-text" class="score-text"></p>
-        <div id="feedback" class="feedback"></div>
-      </section>
-    </main>
+    <section class="panel" aria-labelledby="recommendTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="recommendTitle">薄弱章节推荐</h2>
+          <p id="weakRecommendation">完成几次练习后，我会自动推荐需要加强的章节。</p>
+        </div>
+        <button id="weakPracticeBtn" type="button">练习推荐章节</button>
+      </div>
+    </section>
 
-    <footer class="footer">
-      <p>免费AI家教 · 适配手机端 · 纯HTML、CSS、JavaScript</p>
-    </footer>
-  </div>
+    <section id="chapterHome" class="panel" aria-labelledby="chapterHomeTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="chapterHomeTitle">章节导航</h2>
+          <p>选择章节进入练习。正确率低于 60% 的章节会标红提醒。</p>
+        </div>
+      </div>
+      <div id="chapterGrid" class="chapter-grid"></div>
+    </section>
 
+    <section id="quizPanel" class="panel hidden" aria-labelledby="quizTitle">
+      <div class="panel-head">
+        <div>
+          <p id="chapterBreadcrumb" class="breadcrumb">章节题库</p>
+          <h2 id="quizTitle">做题练习</h2>
+          <p id="quizTip">每次随机显示 10 题，答对 1 题获得 10 积分。</p>
+        </div>
+        <div class="panel-actions">
+          <button id="wrongOnlyBtn" class="secondary-btn" type="button">只练错题</button>
+          <button id="newQuizBtn" class="secondary-btn" type="button">随机换题</button>
+          <button id="submitBtn" type="button">提交判分</button>
+        </div>
+      </div>
+
+      <div class="difficulty-tabs" aria-label="题型难度">
+        <button class="difficulty-btn active" data-difficulty="基础题" type="button">基础题</button>
+        <button class="difficulty-btn" data-difficulty="提高题" type="button">提高题</button>
+        <button class="difficulty-btn" data-difficulty="易错题" type="button">易错题</button>
+      </div>
+
+      <form id="quizForm" class="question-list"></form>
+      <div id="resultBox" class="result-box hidden"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="wrongTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="wrongTitle">错题本</h2>
+          <p id="wrongCount">暂无错题</p>
+        </div>
+        <button id="clearWrongBtn" class="danger-btn" type="button">清空错题</button>
+      </div>
+      <div id="wrongBookList" class="wrong-list"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="recordTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="recordTitle">学习记录</h2>
+          <p>每个章节单独统计做题数、正确率和错题数。</p>
+        </div>
+      </div>
+      <div id="chapterRecordList" class="record-list"></div>
+    </section>
+    <section class="panel" aria-labelledby="achievementTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="achievementTitle">成就中心</h2>
+          <p id="achievementSummary">完成练习后会自动点亮成就。</p>
+        </div>
+      </div>
+      <div id="achievementList" class="achievement-list"></div>
+    </section>
+
+    <section id="reportPage" class="panel report-page hidden" aria-labelledby="reportTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="reportTitle">家长学习报告中心</h2>
+          <p>查看孩子今日、本周、本月学习表现、章节掌握情况和成长趋势。</p>
+        </div>
+        <div class="panel-actions">
+          <button id="backHomeFromReportBtn" class="secondary-btn" type="button">返回首页</button>
+          <button id="exportPdfBtn" class="secondary-btn" type="button">导出 PDF</button>
+          <button id="exportExcelBtn" type="button">导出 Excel</button>
+        </div>
+      </div>
+      <div id="studyReport" class="report-grid"></div>
+      <div id="chapterAnalysis" class="analysis-grid"></div>
+      <div id="knowledgeTopList" class="knowledge-top"></div>
+      <div id="trendCharts" class="trend-grid"></div>
+      <div id="parentAdvice" class="parent-advice"></div>
+    </section>
+  </main>
+
+  <script src="v5-bank.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
