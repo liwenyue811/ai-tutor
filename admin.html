@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>免费AI家教 V4 管理员后台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <p class="tag">管理员后台 · 题库管理</p>
+        <h1>题库管理后台</h1>
+        <p class="intro">导入、导出、新增、修改、删除题目，支持 JSON 和 Excel 另存为 CSV 后批量导入。</p>
+      </div>
+      <div class="hero-actions">
+        <a class="link-button" href="index.html">返回学生端</a>
+      </div>
+    </header>
+
+    <section class="panel" aria-labelledby="manageTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="manageTitle">题目录入系统</h2>
+          <p>题库保存在浏览器 localStorage 中，导入导出均为本地操作。</p>
+        </div>
+        <div class="panel-actions">
+          <button id="exportJsonBtn" class="secondary-btn" type="button">导出JSON</button>
+          <button id="exportCsvBtn" class="secondary-btn" type="button">导出Excel CSV</button>
+        </div>
+      </div>
+
+      <form id="questionForm" class="question-editor">
+        <input id="editQuestionId" type="hidden">
+        <label>章节<select id="editChapter"></select></label>
+        <label>难度<select id="editDifficulty"></select></label>
+        <label class="wide">题目<textarea id="editTitle" rows="3" required></textarea></label>
+        <label class="wide">选项<textarea id="editOptions" rows="4" placeholder="每行一个选项，至少 2 个" required></textarea></label>
+        <label>正确答案<input id="editAnswer" type="text" required></label>
+        <label>知识点<input id="editKnowledge" type="text" placeholder="例如：表面积、最大公因数" required></label>
+        <label class="wide">详细讲解<textarea id="editExplanation" rows="3" required></textarea></label>
+        <label class="wide">常见错误<textarea id="editCommonMistake" rows="2" required></textarea></label>
+        <label class="wide">鼓励语<input id="editEncouragement" type="text" placeholder="例如：继续保持，下一题会更稳！" required></label>
+        <div class="form-actions wide">
+          <button id="saveQuestionBtn" type="submit">保存题目</button>
+          <button id="resetQuestionBtn" class="secondary-btn" type="button">清空表单</button>
+          <button id="resetBankBtn" class="danger-btn" type="button">恢复默认题库</button>
+        </div>
+      </form>
+
+      <div class="import-row">
+        <label>导入题库
+          <input id="importFile" type="file" accept=".json,.csv,.txt">
+        </label>
+        <p id="manageMessage">支持 JSON，或 Excel 另存为 CSV 后导入。CSV 表头：章节,难度,知识点,题目,选项,答案,详细讲解,常见错误,鼓励语。</p>
+      </div>
+
+      <div class="manager-filters">
+        <label>按章节筛选<select id="filterChapter"></select></label>
+        <label>按难度筛选<select id="filterDifficulty"></select></label>
+      </div>
+      <div id="questionManageList" class="manage-list"></div>
+    </section>
+  </main>
+
+  <script src="v5-bank.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

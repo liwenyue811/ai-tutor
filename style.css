@@ -180,6 +180,43 @@ h2 { margin-bottom: 6px; font-size: 24px; }
   gap: 14px;
 }
 
+.subject-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.subject-tab {
+  display: grid;
+  gap: 6px;
+  min-height: 84px;
+  padding: 14px;
+  color: var(--text);
+  text-align: left;
+  border: 1px solid var(--border);
+  background: #fbfdff;
+}
+
+.subject-tab strong {
+  font-size: 20px;
+}
+
+.subject-tab span {
+  color: var(--muted);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.subject-tab.active {
+  color: #fff;
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+.subject-tab.active span {
+  color: rgba(255, 255, 255, 0.86);
+}
+
 .chapter-card {
   text-align: left;
   color: var(--text);
@@ -221,13 +258,14 @@ h2 { margin-bottom: 6px; font-size: 24px; }
   font-weight: 700;
 }
 
-.question-list, .wrong-list, .manage-list, .wrong-group, .achievement-list, .report-grid, .analysis-grid, .trend-grid { display: grid; gap: 12px; }
+.question-list, .wrong-list, .manage-list, .wrong-group, .achievement-list, .report-grid, .analysis-grid, .trend-grid, .recent-medal-list { display: grid; gap: 12px; }
 .achievement-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.report-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.report-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .analysis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px; }
 .trend-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 12px; }
+.recent-medal-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
-.question-card, .wrong-card, .achievement-card, .report-card, .advice-card, .analysis-card, .knowledge-card, .trend-card {
+.question-card, .wrong-card, .achievement-card, .report-card, .advice-card, .analysis-card, .knowledge-card, .trend-card, .medal-card {
   padding: 18px;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -256,6 +294,15 @@ h2 { margin-bottom: 6px; font-size: 24px; }
   color: var(--good);
   background: #dcfce7;
 }
+.medal-card {
+  display: grid;
+  gap: 8px;
+  border-color: rgba(245, 158, 11, 0.42);
+  background: #fffbeb;
+}
+.medal-card strong { color: #92400e; font-size: 18px; }
+.medal-card span { color: var(--text); line-height: 1.5; }
+.medal-card small { color: var(--muted); line-height: 1.5; }
 .report-card h3, .advice-card h3 { margin-bottom: 12px; font-size: 18px; }
 .analysis-card h3, .knowledge-card h3, .trend-card h3 { margin-bottom: 10px; font-size: 18px; }
 .analysis-card strong { display: block; margin-bottom: 8px; font-size: 20px; color: var(--primary-dark); }
@@ -324,12 +371,14 @@ h2 { margin-bottom: 6px; font-size: 24px; }
 .question-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
   margin-top: 12px;
 }
 
 .question-actions button {
   min-height: 40px;
+  padding: 9px 18px;
 }
 
 .analysis {
@@ -365,6 +414,15 @@ h2 { margin-bottom: 6px; font-size: 24px; }
 }
 
 .record-card h3, .wrong-group-title { margin-bottom: 12px; font-size: 18px; }
+.wrong-subject {
+  display: grid;
+  gap: 12px;
+}
+.wrong-subject > h3 {
+  margin: 6px 0 0;
+  color: var(--primary-dark);
+  font-size: 20px;
+}
 .record-line { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .record-line strong { display: block; font-size: 18px; }
 .wrong-card p { margin-bottom: 8px; line-height: 1.7; }
@@ -453,6 +511,11 @@ h2 { margin-bottom: 6px; font-size: 24px; }
   line-height: 1.75;
 }
 
+.teacher-step.hint-only p {
+  font-size: 17px;
+  line-height: 1.8;
+}
+
 .question-editor, .manager-filters {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -506,10 +569,11 @@ h2 { margin-bottom: 6px; font-size: 24px; }
   .hero, .panel-head { display: grid; align-items: stretch; }
   .hero-actions, .panel-actions, .form-actions { justify-content: stretch; }
   .hero-actions button, .panel-actions button, .panel-head button, .form-actions button { width: 100%; }
-  .stats-grid, .chapter-grid, .record-list, .question-editor, .manager-filters, .achievement-list, .report-grid, .analysis-grid, .trend-grid, .level-scale { grid-template-columns: 1fr; }
+  .stats-grid, .chapter-grid, .record-list, .subject-tabs, .question-editor, .manager-filters, .achievement-list, .report-grid, .analysis-grid, .trend-grid, .recent-medal-list, .level-scale { grid-template-columns: 1fr; }
   .panel { padding: 16px; }
   .options { grid-template-columns: 1fr; }
-  .question-actions { display: grid; grid-template-columns: 1fr; }
+  .question-actions { display: flex; justify-content: center; }
+  .question-actions button { width: auto; }
   .teacher-modal { padding: 10px; align-items: flex-end; }
   .teacher-modal-panel { max-height: 92vh; }
   .record-line { grid-template-columns: 1fr; }
@@ -520,8 +584,10 @@ h2 { margin-bottom: 6px; font-size: 24px; }
   .hero,
   .stats-grid,
   .level-panel,
+  .medal-panel,
   #chapterHome,
   #quizPanel,
+  [aria-labelledby="subjectTitle"],
   [aria-labelledby="recommendTitle"],
   [aria-labelledby="wrongTitle"],
   [aria-labelledby="recordTitle"],

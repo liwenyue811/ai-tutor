@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>免费AI家教 V8</title>
-  <link rel="stylesheet" href="./style.css?v=8">
+  <title>补习天王 V16</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="page">
     <header class="hero">
       <div>
-        <p class="tag">人教版五年级下册数学 · V8 家长学习报告中心</p>
-        <h1>免费AI家教</h1>
-        <p class="intro">按章节练习、自动判题、AI老师讲解、错题重练、学习统计和签到积分，帮助你每天进步一点点。</p>
+        <p class="tag">数学｜语文｜英语同步练习</p>
+        <h1>补习天王</h1>
+        <p class="intro">AI讲解｜错题本｜学习报告</p>
       </div>
       <div class="hero-actions">
         <button id="signBtn" class="secondary-btn" type="button">今日签到</button>
@@ -44,6 +44,26 @@
       <div class="level-scale" id="levelScale"></div>
     </section>
 
+    <section class="panel medal-panel" aria-labelledby="recentMedalTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="recentMedalTitle">最近获得勋章</h2>
+          <p>坚持练习、认真答题，会自动点亮学习勋章。</p>
+        </div>
+      </div>
+      <div id="recentMedalList" class="recent-medal-list"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="subjectTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="subjectTitle">选择学科</h2>
+          <p>数学保留当前 V8 功能，语文同步人教版五年级下册八个单元，学习数据全学科通用。</p>
+        </div>
+      </div>
+      <div id="subjectTabs" class="subject-tabs"></div>
+    </section>
+
     <section class="panel" aria-labelledby="recommendTitle">
       <div class="panel-head">
         <div>
@@ -58,10 +78,22 @@
       <div class="panel-head">
         <div>
           <h2 id="chapterHomeTitle">章节导航</h2>
-          <p>选择章节进入练习。正确率低于 60% 的章节会标红提醒。</p>
+          <p>选择章节进入单元测试，也可以直接练期中、期末模拟卷。</p>
         </div>
       </div>
       <div id="chapterGrid" class="chapter-grid"></div>
+    </section>
+
+    <section id="modulePanel" class="panel hidden" aria-labelledby="moduleTitle">
+      <div class="panel-head">
+        <div>
+          <p id="moduleBreadcrumb" class="breadcrumb">语文单元</p>
+          <h2 id="moduleTitle">单元专项</h2>
+          <p>选择专项模块进入练习：生字词、课文理解、阅读理解、单元测试。</p>
+        </div>
+        <button id="moduleBackBtn" class="secondary-btn" type="button">返回单元</button>
+      </div>
+      <div id="moduleGrid" class="chapter-grid"></div>
     </section>
 
     <section id="quizPanel" class="panel hidden" aria-labelledby="quizTitle">
@@ -139,6 +171,6 @@
   </main>
 
   <script src="v5-bank.js"></script>
-  <script src="./script.js?v=8"></script>
+  <script src="script.js"></script>
 </body>
 </html>
